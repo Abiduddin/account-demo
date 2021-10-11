@@ -16,7 +16,6 @@ public class UserDetailsServiceImpl implements UserDetails {
     private final User user;
 
     public UserDetailsServiceImpl(User user) {
-       super();
         this.user = user;
     }
 
@@ -28,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetails {
 
     @Override
     public String getPassword() {
-        return  user.getPassword();
+        return user.getPassword();
     }
 
     @Override

@@ -34,7 +34,13 @@ public class LoginController {
         return userService.returnHome(model);
     }
 
-//    @PostMapping("/vlogin")
+    @GetMapping("/signin")
+    public String signInPage(Model model) {
+        return "home";
+    }
+
+
+ //    @PostMapping("/vlogin")
 //    public String homePage(ExecutiveDto logInData, Model model) {
 //        log.info("logIn authentication check");
 //        log.info(logInData.toString());

@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -29,22 +30,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .csrf().disable();
-//        http
-//                .csrf().disable()
-//
-//                .authorizeRequests()
-//                .antMatchers("/registration","/login").permitAll()
-//                .anyRequest().authenticated();
+        http.authorizeRequests()
+                .antMatchers("/registration", "/add", "/login").permitAll()
+                .anyRequest().authenticated()
+                .and().formLogin().loginPage("/signin").loginProcessingUrl("/login").permitAll()
+                .and().logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/signin").permitAll();
 
-        super.configure(http);
-
-//        http
-//                .csrf().disable()
-//                .authorizeRequests()
-//                .antMatchers("/registration","/login").permitAll()
-//                .anyRequest()
-//                .authenticated();
+//        super.configure(http);
     }
 }
