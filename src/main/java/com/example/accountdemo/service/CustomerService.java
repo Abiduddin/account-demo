@@ -5,13 +5,13 @@ import com.example.accountdemo.dto.TransferFormDto;
 import org.springframework.ui.Model;
 
 public interface CustomerService {
-    String getCustomer(long id, Model model);
+    String getCustomer(Model model);
 
-    String getCustomersList(long executiveId, Model model);
+    String getCustomersList(Model model);
 
     String addCustomer(CustomerDto customer, Model model);
 
-    String transferView(long id, Model model);
+    String transferView(Model model);
 
     String transferMoney(TransferFormDto transferFormDto, Model model);
 }

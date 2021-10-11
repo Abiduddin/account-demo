@@ -23,10 +23,10 @@ public class CustomerController {
     }
 
 
-    @GetMapping("/{id}")
-    public String home(@PathVariable long id, Model model){
+    @GetMapping("")
+    public String home(Model model){
 
-        return customerService.getCustomer(id , model);
+        return customerService.getCustomer(model);
     }
 
 
@@ -41,9 +41,9 @@ public class CustomerController {
         return customerService.addCustomer(customer, model);
     }
 
-    @GetMapping("/view/{executiveId}")
-    public String view(@PathVariable long executiveId, Model model){
+    @GetMapping("/view")
+    public String view(Model model){
 
-        return customerService.getCustomersList(executiveId, model);
+        return customerService.getCustomersList( model);
     }
 }

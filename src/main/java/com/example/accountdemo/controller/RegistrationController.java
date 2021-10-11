@@ -33,9 +33,9 @@ public class RegistrationController {
         return executiveService.addExecutive(executiveDto, model);
     }
 
-    @GetMapping("executive/{id}")
-    public String home(@PathVariable long id, Model model){
+    @GetMapping("/executive")
+    public String home(Model model){
 
-        return executiveService.getExecutive(id, model);
+        return executiveService.getExecutive(model);
     }
 }

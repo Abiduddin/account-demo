@@ -36,13 +36,14 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public String getCustomer(long id, Model model) {
+    public String getCustomer(Model model) {
 
-        if (id != userService.getAuthUser().getId()) {
+        User user = userService.getAuthUser();
+        if (user ==null) {
             return "error";
         }
         model.addAttribute("appName", "Exabyting Customer Web portal");
-        Optional<Customer> customer = customerRepository.findByUserId(id);
+        Optional<Customer> customer = customerRepository.findByUserId(user.getId());
         model.addAttribute("customer", customer.get());
 
         log.info("customers home view return for: " + customer.get().toString());
@@ -50,9 +51,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public String getCustomersList(long executiveId, Model model) {
+    public String getCustomersList(Model model) {
 
-        model.addAttribute("executiveId", executiveId);
         List<Customer> customers = (List<Customer>) customerRepository.findAll();
         model.addAttribute("customers", customers);
         log.info("customers list view return");
@@ -85,9 +85,13 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public String transferView(long id, Model model) {
+    public String transferView(Model model) {
+        User user = userService.getAuthUser();
+        if (user ==null) {
+            return "error";
+        }
         model.addAttribute("appName", "Exabyting Customer Web portal");
-        Optional<Customer> customer = customerRepository.findByUserId(id);
+        Optional<Customer> customer = customerRepository.findByUserId(user.getId());
         model.addAttribute("customer", customer.get());
 
         log.info("goto transfer view");

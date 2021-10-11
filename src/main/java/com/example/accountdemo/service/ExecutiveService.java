@@ -4,7 +4,7 @@ import com.example.accountdemo.dto.ExecutiveDto;
 import org.springframework.ui.Model;
 
 public interface ExecutiveService {
-    String getExecutive(long id, Model model);
+    String getExecutive(Model model);
 
     String addExecutive(ExecutiveDto executiveDto, Model model);
 }

@@ -60,10 +60,10 @@ public class UserServiceImpl implements UserService {
     private String getHomePage(User user){
         if (user.getTypeId() == 0) {
             log.info("redirect to customer home page");
-            return "redirect:/customer/" + user.getId();
+            return "redirect:/customer";
         } else {
             log.info("redirect to executive home page");
-            return  "redirect:/executive/" + user.getId();
+            return  "redirect:/executive";
         }
     }
     public User getAuthUser()

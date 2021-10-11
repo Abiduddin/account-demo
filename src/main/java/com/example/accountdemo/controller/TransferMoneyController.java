@@ -23,10 +23,10 @@ public class TransferMoneyController {
         this.customerService = customerService;
     }
 
-    @GetMapping("/{id}")
-    public String home(@PathVariable long id, Model model) {
+    @GetMapping("")
+    public String home( Model model) {
 
-        return customerService.transferView(id, model);
+        return customerService.transferView(model);
     }
 
     @PostMapping("/process")

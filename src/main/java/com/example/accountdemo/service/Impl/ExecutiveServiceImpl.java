@@ -30,12 +30,13 @@ public class ExecutiveServiceImpl implements ExecutiveService {
     }
 
     @Override
-    public String getExecutive(long id, Model model) {
-        if (id != userService.getAuthUser().getId()) {
+    public String getExecutive(Model model) {
+        User user = userService.getAuthUser();
+        if (user ==null) {
             return "error";
         }
         model.addAttribute("appName","Exabyting Executive Web portal");
-        Optional<Executive> executive = executiveRepository.findByUserId(id);
+        Optional<Executive> executive = executiveRepository.findByUserId(user.getId());
         model.addAttribute("executive",executive.get());
 
         log.info("home view for executive: " + executive.get().toString());
