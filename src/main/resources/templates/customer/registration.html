@@ -6,6 +6,7 @@
 </head>
 <body>
 <div>
+    <button><a href="/">Back</a></button>
     <button><a href="/logout">Log Out</a></button>
 </div>
 <!--<div>-->
@@ -43,6 +44,10 @@
 
 
 <form action="/customer/add" method="post">
+    <input
+            type="hidden"
+            th:name="${_csrf.parameterName}"
+            th:value="${_csrf.token}" />
     <label for="name">Name</label><br>
     <input type="text" id="name" name="name" placeholder="Name"><br><br>
 <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
