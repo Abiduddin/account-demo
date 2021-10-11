@@ -20,15 +20,20 @@ public class ExecutiveServiceImpl implements ExecutiveService {
     private final CustomerRepository customerRepository;
     private final ExecutiveRepository executiveRepository;
     private final UserRepository userRepository;
+    private final UserServiceImpl userService;
 
-    public ExecutiveServiceImpl(CustomerRepository customerRepository, ExecutiveRepository executiveRepository, UserRepository userRepository) {
+    public ExecutiveServiceImpl(CustomerRepository customerRepository, ExecutiveRepository executiveRepository, UserRepository userRepository, UserServiceImpl userService) {
         this.customerRepository = customerRepository;
         this.executiveRepository = executiveRepository;
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @Override
     public String getExecutive(long id, Model model) {
+        if (id != userService.getAuthUser().getId()) {
+            return "error";
+        }
         model.addAttribute("appName","Exabyting Executive Web portal");
         Optional<Executive> executive = executiveRepository.findByUserId(id);
         model.addAttribute("executive",executive.get());

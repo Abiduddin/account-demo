@@ -7,6 +7,8 @@ import com.example.accountdemo.repository.ExecutiveRepository;
 import com.example.accountdemo.repository.UserRepository;
 import com.example.accountdemo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -40,6 +42,17 @@ public class UserServiceImpl implements UserService {
         return "home";
     }
 
+    @Override
+    public String returnHome(Model model) {
+
+        User user = getAuthUser();
+        if (user != null)
+        {
+            return getHomePage(user);
+        }
+        return "home";
+    }
+
     private boolean isPasswordMatch(ExecutiveDto logInData, Optional<User> user) {
         return user.get().getPassword().equals(logInData.getPassword());
     }
@@ -52,5 +65,13 @@ public class UserServiceImpl implements UserService {
             log.info("redirect to executive home page");
             return  "redirect:/executive/" + user.getId();
         }
+    }
+    public User getAuthUser()
+    {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Optional<User> user = userRepository.findByEmail(auth.getName());
+        log.info(String.valueOf(auth));
+        log.info(auth.getName());
+        return user.orElse(null);
     }
 }

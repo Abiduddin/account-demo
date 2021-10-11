@@ -7,7 +7,10 @@ import lombok.ToString;
 
 import javax.persistence.*;
 
-@Getter @Setter @NoArgsConstructor @ToString
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 @Entity
 public class Customer {
 

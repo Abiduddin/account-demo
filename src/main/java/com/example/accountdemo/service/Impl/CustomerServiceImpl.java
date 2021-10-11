@@ -8,7 +8,9 @@ import com.example.accountdemo.repository.CustomerRepository;
 import com.example.accountdemo.repository.ExecutiveRepository;
 import com.example.accountdemo.repository.UserRepository;
 import com.example.accountdemo.service.CustomerService;
+import com.example.accountdemo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -24,15 +26,21 @@ public class CustomerServiceImpl implements CustomerService {
     private final ExecutiveRepository executiveRepository;
     private final UserRepository userRepository;
 
+    private final UserServiceImpl userService;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository, ExecutiveRepository executiveRepository, UserRepository userRepository) {
+    public CustomerServiceImpl(CustomerRepository customerRepository, ExecutiveRepository executiveRepository, UserRepository userRepository, UserServiceImpl userService) {
         this.customerRepository = customerRepository;
         this.executiveRepository = executiveRepository;
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @Override
     public String getCustomer(long id, Model model) {
+
+        if (id != userService.getAuthUser().getId()) {
+            return "error";
+        }
         model.addAttribute("appName", "Exabyting Customer Web portal");
         Optional<Customer> customer = customerRepository.findByUserId(id);
         model.addAttribute("customer", customer.get());
@@ -102,7 +110,7 @@ public class CustomerServiceImpl implements CustomerService {
             Customer customerDes = desCustomer.get();
             User user1 = user.get();
 
-            if (checkTransactionCondition(transferFormDto, customer1, user1)){
+            if (checkTransactionCondition(transferFormDto, customer1, user1)) {
                 status = "Success!";
                 transferBalance(transferFormDto, customer1, customerDes);
             }
@@ -114,7 +122,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     private void transferBalance(TransferFormDto transferFormDto, Customer customer1, Customer customerDes) {
-        customer1.setBalance(customer1.getBalance()- transferFormDto.getTransferMoney());
+        customer1.setBalance(customer1.getBalance() - transferFormDto.getTransferMoney());
         customerDes.setBalance(transferFormDto.getTransferMoney() + customerDes.getBalance());
         customerRepository.save(customer1);
         customerRepository.save(customerDes);

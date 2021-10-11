@@ -5,6 +5,9 @@
     <title>Title</title>
 </head>
 <body>
+<div>
+    <button><a href="/logout">Log Out</a></button>
+</div>
 <p>Welcome to <span th:text="${appName}"</span></p>
 <div>
     <button><a th:href="@{'/customer/' + ${customer.userId}}">Back</a></button>
