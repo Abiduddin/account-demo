@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -22,19 +21,19 @@ public class RegistrationController {
 
 
     @GetMapping("/registration")
-    public String registration(Model model){
+    public String registration(Model model) {
         log.info("goto executive registration view");
         return "executive/registration";
     }
 
     @PostMapping("/add")
-    public String addExecutive(ExecutiveDto executiveDto, Model model){
+    public String addExecutive(ExecutiveDto executiveDto, Model model) {
 
         return executiveService.addExecutive(executiveDto, model);
     }
 
     @GetMapping("/executive")
-    public String home(Model model){
+    public String home(Model model) {
 
         return executiveService.getExecutive(model);
     }

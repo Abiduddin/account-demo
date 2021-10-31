@@ -1,8 +1,8 @@
 package com.example.accountdemo.dto;
 
-import com.example.accountdemo.model.Customer;
 import com.example.accountdemo.model.Executive;
 import com.example.accountdemo.model.User;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,25 +13,15 @@ import lombok.Setter;
 public class ExecutiveDto {
 
     private long id;
-
     private long userId;
-
     private String name;
-
     private String email;
-
     private String password;
-
-
     private String retypePassword;
-
     private int typeId;
 
-
     public Executive getExecutive() {
-        return new Executive(this.getUserId(),
-                this.name,
-                this.email);
+        return Executive.builder().userId(this.getUserId()).name(this.getName()).email(this.getEmail()).build();
     }
 
     public User getUser() {

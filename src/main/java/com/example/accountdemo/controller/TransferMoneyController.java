@@ -1,17 +1,12 @@
 package com.example.accountdemo.controller;
 
 import com.example.accountdemo.dto.TransferFormDto;
-import com.example.accountdemo.model.Customer;
-import com.example.accountdemo.model.User;
 import com.example.accountdemo.service.CustomerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/transfer")
@@ -24,7 +19,7 @@ public class TransferMoneyController {
     }
 
     @GetMapping("")
-    public String home( Model model) {
+    public String home(Model model) {
 
         return customerService.transferView(model);
     }

@@ -39,9 +39,8 @@ public class CustomerServiceImpl implements CustomerService {
     public String getCustomer(Model model) {
 
         User user = userService.getAuthUser();
-        if (user ==null) {
-            return "error";
-        }
+        if (user ==null) return "error";
+
         model.addAttribute("appName", "Exabyting Customer Web portal");
         Optional<Customer> customer = customerRepository.findByUserId(user.getId());
         model.addAttribute("customer", customer.get());

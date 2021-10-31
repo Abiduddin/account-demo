@@ -1,17 +1,16 @@
 package com.example.accountdemo.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @ToString
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Executive {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,9 +25,4 @@ public class Executive {
     @Column(nullable = false, unique = true)
     private String email;
 
-    public Executive(long userId, String name, String email) {
-        this.userId = userId;
-        this.name = name;
-        this.email = email;
-    }
 }
