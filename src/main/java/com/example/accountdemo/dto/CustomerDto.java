@@ -1,8 +1,5 @@
 package com.example.accountdemo.dto;
 
-
-import com.example.accountdemo.model.Customer;
-import com.example.accountdemo.model.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,18 +18,4 @@ public class CustomerDto {
     private String password;
     private String retypePassword;
     private int typeId;
-
-    public Customer getCustomer() {
-        return new Customer(this.getUserId(),
-                this.getAddress(),
-                this.balance,
-                this.name,
-                this.email);
-    }
-
-    public User getUser() {
-        return new User(0,
-                this.getEmail(),
-                this.getPassword());
-    }
 }

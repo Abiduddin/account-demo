@@ -1,17 +1,16 @@
 package com.example.accountdemo.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Entity
+@Builder
 public class Customer {
 
     @Id
@@ -33,13 +32,4 @@ public class Customer {
     @Column(nullable = false, unique = true)
     private String email;
 
-
-    public Customer( long userId, String address, int
-            balance, String name, String email) {
-        this.userId = userId;
-        this.address = address;
-        this.balance = balance;
-        this.name = name;
-        this.email = email;
-    }
 }

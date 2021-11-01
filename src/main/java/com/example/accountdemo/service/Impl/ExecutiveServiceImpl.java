@@ -52,9 +52,9 @@ public class ExecutiveServiceImpl implements ExecutiveService {
             log.info("password matched!");
 
             try {
-                User user = userRepository.save(executiveDto.getUser());
+                User user = userRepository.save(getUserObj(executiveDto));
                 executiveDto.setUserId(user.getId());
-                executiveRepository.save(executiveDto.getExecutive());
+                executiveRepository.save(getExecutiveObj(executiveDto));
 
             } catch (DataIntegrityViolationException e)
             {
@@ -68,6 +68,14 @@ public class ExecutiveServiceImpl implements ExecutiveService {
         log.error(status);
         model.addAttribute("status",status);
         return "executive/registration";
+    }
+
+    public Executive getExecutiveObj(ExecutiveDto executive) {
+        return Executive.builder().userId(executive.getUserId()).name(executive.getName()).email(executive.getEmail()).build();
+    }
+
+    public User getUserObj(ExecutiveDto executive) {
+        return User.builder().typeId(1).email(executive.getEmail()).password(executive.getPassword()).build();
     }
 
     private boolean checkPassword(ExecutiveDto executiveDto) {

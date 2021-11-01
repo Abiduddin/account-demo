@@ -1,17 +1,16 @@
 package com.example.accountdemo.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Entity
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,9 +28,4 @@ public class User {
     @Transient
     private String retypePassword;
 
-    public User(int typeId, String email, String password) {
-        this.typeId = typeId;
-        this.email = email;
-        this.password = password;
-    }
 }

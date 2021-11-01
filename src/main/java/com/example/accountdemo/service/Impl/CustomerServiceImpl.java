@@ -8,9 +8,7 @@ import com.example.accountdemo.repository.CustomerRepository;
 import com.example.accountdemo.repository.ExecutiveRepository;
 import com.example.accountdemo.repository.UserRepository;
 import com.example.accountdemo.service.CustomerService;
-import com.example.accountdemo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -66,9 +64,9 @@ public class CustomerServiceImpl implements CustomerService {
             log.info("password matched!");
 
             try {
-                User user = userRepository.save(customer.getUser());
+                User user = userRepository.save(getUserObj(customer));
                 customer.setUserId(user.getId());
-                customerRepository.save(customer.getCustomer());
+                customerRepository.save(getCustomerObj(customer));
 
             } catch (DataIntegrityViolationException e) {
                 status = "Failed!" + "\n" + e.getRootCause().getMessage();
@@ -81,6 +79,14 @@ public class CustomerServiceImpl implements CustomerService {
         log.error(status);
         model.addAttribute("status", status);
         return "customer/registration";
+    }
+
+    private User getUserObj(CustomerDto customer) {
+        return User.builder().typeId(0).email(customer.getEmail()).password(customer.getPassword()).build();
+    }
+
+    private Customer getCustomerObj(CustomerDto customer) {
+        return Customer.builder().userId(customer.getUserId()).address(customer.getAddress()).balance(customer.getBalance()).name(customer.getName()).email(customer.getEmail()).build();
     }
 
     @Override
